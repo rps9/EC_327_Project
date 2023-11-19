@@ -1,19 +1,22 @@
 package com.example.ec_327_project;
 
 import android.graphics.Canvas;
-import android.view.SurfaceHolder;
 import android.graphics.Color;
-
+import android.view.SurfaceHolder;
 
 public class GameThread extends Thread {
-    private SurfaceHolder surfaceHolder;
-    private boolean isRunning;
-    private Player player;
+    private final SurfaceHolder surfaceHolder;
+    private volatile boolean isRunning;
+    private final Player player;
 
     public GameThread(SurfaceHolder holder, Player player) {
         surfaceHolder = holder;
         isRunning = true;
         this.player = player;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 
     @Override
@@ -23,9 +26,11 @@ public class GameThread extends Thread {
             canvas = null;
             try {
                 canvas = surfaceHolder.lockCanvas();
-                synchronized (surfaceHolder) {
-                    update();  // Update game logic
-                    draw(canvas);  // Draw game elements
+                if (canvas != null) {
+                    synchronized (surfaceHolder) {
+                        update();
+                        draw(canvas);
+                    }
                 }
             } finally {
                 if (canvas != null) {
@@ -35,27 +40,16 @@ public class GameThread extends Thread {
         }
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
     private void update() {
-        // Update game logic here
         player.update();
     }
 
     private void draw(Canvas canvas) {
-        if (canvas != null) {
-            // Clear the canvas
-            canvas.drawColor(Color.BLACK);
-
-            // Draw the player
-            player.draw(canvas);
-
-            // Add other game elements drawing logic here
-            // ...
-        }
+        canvas.drawColor(Color.BLACK);
+        player.draw(canvas);
     }
 }
+
+
 
 

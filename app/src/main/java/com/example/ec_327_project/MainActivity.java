@@ -9,17 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
     private GameThread gameThread;
-    private Player player;
+    private final Player player = new Player();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SurfaceView gameSurfaceView = findViewById(R.id.gameSurfaceView);
+        SurfaceView gameSurfaceView = findViewById(R.id.gameView);
         gameSurfaceView.getHolder().addCallback(this);
 
-        player = new Player();
         gameThread = new GameThread(gameSurfaceView.getHolder(), player);
         gameThread.start();
     }
@@ -49,14 +48,21 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 player.startChargingJump();
+                // Add visual feedback or any necessary actions when starting to charge
                 break;
             case MotionEvent.ACTION_UP:
                 player.releaseJump();
+                // Execute the jump based on the charged duration
+                // Clear visual feedback or reset any charging indicators
                 break;
         }
         return true;
     }
+
 }
+
+
+
 
 
 

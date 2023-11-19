@@ -5,23 +5,23 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Player {
-    private float x, y;  // Adjust the position as needed
-    private float radius = 20;  // Adjust the radius as needed
-    private float jumpSpeed = 0;  // Adjust the initial jump speed as needed
-    private float gravity = 1;  // Adjust the gravity as needed
+    private float x, y; // Adjust the position as needed
+    private final float radius = 20; // Adjust the radius as needed
+    private float jumpSpeed = 0; // Adjust the initial jump speed as needed
+    private final float gravity = 1; // Adjust the gravity as needed
     private boolean isJumping = false;
 
-    private float groundLevel = 500;  // Adjust the ground level as needed
-    private float maxHeight = 150;  // Adjust the max height as needed
-    private float chargeFactor = 0.03f;  // Adjust the charge factor for slower charging
-    private long maxChargeTime = 1000;  // Maximum time to charge in milliseconds
+    private final float groundLevel = 500; // Adjust the ground level as needed
+    private final float maxHeight = 150; // Adjust the max height as needed
+    private final float chargeFactor = 0.03f; // Adjust the charge factor for slower charging
+    private final long maxChargeTime = 1000; // Maximum time to charge in milliseconds
 
-    private long jumpStartTime;  // To track when the jump button is pressed
+    private long jumpStartTime; // To track when the jump button is pressed
 
     public Player() {
         // Initialize player properties
         x = 100;
-        y = groundLevel;  // Start at the ground level
+        y = groundLevel; // Start at the ground level
     }
 
     public void update() {
@@ -40,7 +40,6 @@ public class Player {
     }
 
     public void draw(Canvas canvas) {
-        // Draw the player as a white circle
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         canvas.drawCircle(x, y, radius, paint);
@@ -68,6 +67,14 @@ public class Player {
         isJumping = true;
     }
 }
+
+
+
+
+
+
+
+
 
 
 
