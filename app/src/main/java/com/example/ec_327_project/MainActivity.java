@@ -6,21 +6,40 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.content.Context;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
+
+
+public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, SensorEventListener {
     private GameThread gameThread;
-    private final Player player = new Player();
+    private Player player;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SurfaceView gameSurfaceView = findViewById(R.id.gameView);
+        SurfaceView gameSurfaceView = findViewById(R.id.gameSurfaceView);
         gameSurfaceView.getHolder().addCallback(this);
 
+        player = new Player();
         gameThread = new GameThread(gameSurfaceView.getHolder(), player);
         gameThread.start();
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            if (accelerometer != null) {
+                sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+            }
+        }
     }
 
     @Override
@@ -48,18 +67,31 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 player.startChargingJump();
-                // Add visual feedback or any necessary actions when starting to charge
                 break;
             case MotionEvent.ACTION_UP:
                 player.releaseJump();
-                // Execute the jump based on the charged duration
-                // Clear visual feedback or reset any charging indicators
                 break;
         }
         return true;
     }
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float jumpY = event.values[1] / (float)9.809989;
+            float jumpX = event.values[0] / (float)9.809989;
+
+            player.setJumpDirection(jumpX, jumpY);
+        }
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Handle accuracy changes if needed
+    }
 }
+
 
 
 
