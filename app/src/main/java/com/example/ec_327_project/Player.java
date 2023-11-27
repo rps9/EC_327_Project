@@ -6,16 +6,16 @@ import android.graphics.Paint;
 
 public class Player {
     private float x, y, jumpX, jumpY;  // Adjust the position as needed
-    private float radius = 20;  // Adjust the radius as needed
+    private float width = 40;
+    private float height = 80;
     private float jumpSpeedX = 0;  // Adjust the initial jump speed as needed
     private float jumpSpeedY = 0;
     private float gravity = 1;  // Adjust the gravity as needed
     private boolean isJumping = false;
 
-    private float groundLevel = 500;  // Adjust the ground level as needed
-    private float maxHeight = 150;  // Adjust the max height as needed
-    private float chargeFactor = 0.03f;  // Adjust the charge factor for slower charging
-    private long maxChargeTime = 1000;  // Maximum time to charge in milliseconds
+    private float groundLevel = 1000;  // Adjust the ground level as needed
+    private float maxHeight = 30;  // Adjust the max height as needed
+    private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
     private long jumpStartTime;  // To track when the jump button is pressed
 
@@ -49,11 +49,14 @@ public class Player {
         }
     }
 
+    public float getY(){
+        return y;
+    }
+
     public void draw(Canvas canvas) {
-        // Draw the player as a white circle
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        canvas.drawCircle(x, y, radius, paint);
+        canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
     }
 
     public void startChargingJump() {
@@ -69,7 +72,7 @@ public class Player {
         if (!isJumping) {
             // Called when the jump button is released
             // Calculate charge duration, ensuring it doesn't exceed the maximum charge time
-            long chargeDuration = Math.min(System.currentTimeMillis() - jumpStartTime, maxChargeTime);
+            long chargeDuration = System.currentTimeMillis() - jumpStartTime;
 
             // Adjust jump height based on the charge duration and charge factor
             float jumpHeight = Math.min(chargeDuration * chargeFactor, maxHeight);
@@ -83,6 +86,8 @@ public class Player {
         }
     }
 }
+
+
 
 
 
