@@ -18,9 +18,10 @@ public class GameThread extends Thread {
         this.player = player;
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
-        platforms.add(new Platform(10, 2000, 10, 5000));
-        platforms.add(new Platform(1070,2000, 10,5000));
-        platforms.add(new Platform(0, 1900, 3000, 10));
+        platforms.add(new Platform(10, 2000, 20, 5000));//left side
+        platforms.add(new Platform(1070,2000, 20,5000));//right side
+        platforms.add(new Platform(0, 1900, 3000, 40));//floor
+        platforms.add(new Platform(300, 1600, 200, 40));//testing platform
     }
 
     @Override

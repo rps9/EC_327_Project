@@ -3,6 +3,7 @@ package com.example.ec_327_project;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Player {
     private float gravity = 1;  // Adjust the gravity as needed
     private boolean isJumping = false;
 
-    private float groundLevel = 1000;  // Adjust the ground level as needed
+    private float groundLevel = 1850;  // Adjust the ground level as needed
     private float maxHeight = 30;  // Adjust the max height as needed
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
@@ -46,37 +47,37 @@ public class Player {
     private void checkPlatformCollisions() {
         for (Platform platform : platformList) {
             if (isCollidingWithLeftSide(platform)) {
-                // Collision with the left side of the platform
-                jumpSpeedX = 0; // Stop horizontal movement
-                x = platform.leftX() - width / 2; // Adjust player position to prevent overlap
+                //Log.d("CollisionDetection", "Left side collision detected!");
+                jumpSpeedX = 0;
+                x = platform.rightX() + width / 2;
             } else if (isCollidingWithRightSide(platform)) {
-                // Collision with the right side of the platform
-                jumpSpeedX = 0; // Stop horizontal movement
-                x = platform.rightX() + width / 2; // Adjust player position to prevent overlap
+                //Log.d("CollisionDetection", "Right side collision detected!");
+                jumpSpeedX = 0;
+                x = platform.leftX() - width / 2;
             }
 
-            if (isCollidingWithTopSide(platform)) {
-                // Collision with the top side of the platform
-                jumpSpeedY = 0; // Stop vertical movement
+            if (jumpSpeedY >= 0 && isCollidingWithBottomSide(platform)) {
+                //Log.d("CollisionDetection", "Bottom side collision detected!");
+                jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
-                y = platform.topY() - height / 2; // Adjust player position to prevent overlap
-            } else if (isCollidingWithBottomSide(platform)) {
-                // Collision with the bottom side of the platform
-                jumpSpeedY = 0; // Stop vertical movement
-                jumpSpeedX = 0;
-                y = platform.bottomY() + height / 2; // Adjust player position to prevent overlap
+                y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+            } else if (jumpSpeedY < 0 && isCollidingWithTopSide(platform)) {
+                //Log.d("CollisionDetection", "Top side collision detected!");
+                jumpSpeedY = 0;
+                y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
             }
-
         }
     }
 
-    private boolean isCollidingWithLeftSide(Platform platform) {
+
+
+    private boolean isCollidingWithRightSide(Platform platform) { //left side of player
         return rightX() > platform.leftX() && leftX() < platform.leftX() &&
                 topY() < platform.bottomY() && bottomY() > platform.topY();
     }
 
-    private boolean isCollidingWithRightSide(Platform platform) {
+    private boolean isCollidingWithLeftSide(Platform platform) {
         return leftX() < platform.rightX() && rightX() > platform.rightX() &&
                 topY() < platform.bottomY() && bottomY() > platform.topY();
     }
@@ -118,6 +119,9 @@ public class Player {
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
 
+            Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);
+
+
             checkPlatformCollisions();
         }
     }
@@ -147,9 +151,11 @@ public class Player {
             // Called when the jump button is released
             // Calculate charge duration, ensuring it doesn't exceed the maximum charge time
             long chargeDuration = System.currentTimeMillis() - jumpStartTime;
+            float jumpHeight = chargeFactor*chargeDuration + maxHeight/2;
 
-            // Adjust jump height based on the charge duration and charge factor
-            float jumpHeight = Math.min(chargeDuration * chargeFactor, maxHeight);
+            if (jumpHeight > maxHeight){
+                jumpHeight = maxHeight;
+            }
 
             // Set the jump speed based on the calculated jump height
             jumpSpeedX = -jumpHeight;
