@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.util.List;
+
 public class Player {
     private float x, y, jumpX, jumpY;  // Adjust the position as needed
     private float width = 40;
@@ -18,13 +20,89 @@ public class Player {
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
     private long jumpStartTime;  // To track when the jump button is pressed
+    private List<Platform> platformList;
 
     public Player() {
         // Initialize player properties
-        x = 100;
+        x = 300;
         y = groundLevel;  // Start at the ground level
     }
 
+    public float leftX() {
+        return x - width / 2;
+    }
+
+    public float rightX() {
+        return x + width / 2;
+    }
+
+    public float topY() {
+        return y - height / 2;
+    }
+
+    public float bottomY() {
+        return y + height / 2;
+    }
+    private void checkPlatformCollisions() {
+        for (Platform platform : platformList) {
+            if (isCollidingWithLeftSide(platform)) {
+                // Collision with the left side of the platform
+                jumpSpeedX = 0; // Stop horizontal movement
+                x = platform.leftX() - width / 2; // Adjust player position to prevent overlap
+            } else if (isCollidingWithRightSide(platform)) {
+                // Collision with the right side of the platform
+                jumpSpeedX = 0; // Stop horizontal movement
+                x = platform.rightX() + width / 2; // Adjust player position to prevent overlap
+            }
+
+            if (isCollidingWithTopSide(platform)) {
+                // Collision with the top side of the platform
+                jumpSpeedY = 0; // Stop vertical movement
+                jumpSpeedX = 0;
+                isJumping = false;
+                y = platform.topY() - height / 2; // Adjust player position to prevent overlap
+            } else if (isCollidingWithBottomSide(platform)) {
+                // Collision with the bottom side of the platform
+                jumpSpeedY = 0; // Stop vertical movement
+                jumpSpeedX = 0;
+                y = platform.bottomY() + height / 2; // Adjust player position to prevent overlap
+            }
+
+        }
+    }
+
+    private boolean isCollidingWithLeftSide(Platform platform) {
+        return rightX() > platform.leftX() && leftX() < platform.leftX() &&
+                topY() < platform.bottomY() && bottomY() > platform.topY();
+    }
+
+    private boolean isCollidingWithRightSide(Platform platform) {
+        return leftX() < platform.rightX() && rightX() > platform.rightX() &&
+                topY() < platform.bottomY() && bottomY() > platform.topY();
+    }
+
+
+    private boolean isCollidingWithTopSide(Platform platform) {
+        return bottomY() > platform.topY() && topY() < platform.topY() &&
+                rightX() > platform.leftX() && leftX() < platform.rightX();
+    }
+
+    private boolean isCollidingWithBottomSide(Platform platform) {
+        return topY() < platform.bottomY() && bottomY() > platform.bottomY() &&
+                rightX() > platform.leftX() && leftX() < platform.rightX();
+    }
+
+
+
+
+
+    private boolean isCollidingWith(Platform platform) {
+        // Basic collision detection logic
+        return rightX() > platform.leftX() &&
+                leftX() < platform.rightX() &&
+                bottomY() > platform.topY() &&
+                topY() < platform.bottomY();
+    }
     public void setJumpDirection(float jumpX, float jumpY) {
         if (!isJumping) {
             // Set the jump direction only if the player is not already jumping
@@ -32,22 +110,18 @@ public class Player {
             this.jumpY = jumpY;
         }
     }
-    public void update() {
+    public void update(List<Platform> platforms) {
+        this.platformList = platforms;
         if (isJumping) {
             // If jumping, update the position accordingly
             y += jumpSpeedY*jumpY;
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
 
-            // Add logic to stop jumping when reaching the ground or a certain height
-            if (y >= groundLevel) {
-                y = groundLevel;
-                isJumping = false;
-                jumpSpeedY = 0;
-                jumpSpeedX = 0;
-            }
+            checkPlatformCollisions();
         }
     }
+
 
     public float getY(){
         return y;

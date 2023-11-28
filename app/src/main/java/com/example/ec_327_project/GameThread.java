@@ -3,17 +3,24 @@ package com.example.ec_327_project;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.graphics.Color;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;
     private boolean isRunning;
     private Player player;
+    private List<Platform> platforms;
 
     public GameThread(SurfaceHolder holder, Player player) {
         surfaceHolder = holder;
         isRunning = true;
         this.player = player;
+        platforms = new ArrayList<>(); // Create a list to hold platforms
+        // Add platforms to the list
+        platforms.add(new Platform(10, 2000, 10, 5000));
+        platforms.add(new Platform(1070,2000, 10,5000));
+        platforms.add(new Platform(0, 1900, 3000, 10));
     }
 
     @Override
@@ -41,7 +48,7 @@ public class GameThread extends Thread {
 
     private void update() {
         // Update game logic here
-        player.update();
+        player.update(platforms);
     }
 
     private void draw(Canvas canvas) {
@@ -52,11 +59,16 @@ public class GameThread extends Thread {
             // Draw the player
             player.draw(canvas);
 
-            // Add other game elements drawing logic here
-            // ...
+            // Draw platforms
+            for (Platform platform : platforms) {
+                platform.draw(canvas);
+            }
         }
     }
+
+
 }
+
 
 
 
