@@ -3,7 +3,9 @@ package com.example.ec_327_project;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import java.util.List;
 
 public class Player {
@@ -20,9 +22,20 @@ public class Player {
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
     private long jumpStartTime;  // To track when the jump button is pressed
+
+    private Bitmap[] playerImages;  // Array to store different player images
+    private int currentImageIndex = 0;  // Index of the current player image
+
     private List<Platform> platformList;
 
     public Player() {
+
+        // Load player images from resources
+        //playerImages = new Bitmap[imageResourceIds.length];
+        //for (int i = 0; i < imageResourceIds.length; i++) {
+        //    playerImages[i] = BitmapFactory.decodeResource(context.getResources(), imageResourceIds[i]);
+        //}
+
         // Initialize player properties
         x = 300;
         y = groundLevel;  // Start at the ground level
@@ -131,6 +144,9 @@ public class Player {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
+        // Draw the player using the current player image
+        //Bitmap currentImage = playerImages[currentImageIndex];
+        //canvas.drawBitmap(currentImage, x - currentImage.getWidth() / 2, y - currentImage.getHeight() / 2, null);
     }
 
     public void startChargingJump() {
@@ -150,6 +166,10 @@ public class Player {
 
             // Adjust jump height based on the charge duration and charge factor
             float jumpHeight = Math.min(chargeDuration * chargeFactor, maxHeight);
+
+            // Adjust the current image index based on charge duration
+            //float percentageCharged = (float) jumpHeight / maxHeight;
+            //currentImageIndex = (int) (percentageCharged * (playerImages.length - 1));
 
             // Set the jump speed based on the calculated jump height
             jumpSpeedX = -jumpHeight;
