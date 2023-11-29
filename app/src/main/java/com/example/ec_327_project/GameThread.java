@@ -48,7 +48,6 @@ public class GameThread extends Thread {
     }
 
     private void update() {
-        // Update game logic here
         player.update(platforms);
     }
 

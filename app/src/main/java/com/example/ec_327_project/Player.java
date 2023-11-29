@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.List;
 
 public class Player {
-    private float x, y, jumpX, jumpY;  // Adjust the position as needed
+    private float x, y, jumpX, jumpY, platformY;  // Adjust the position as needed
     private float width = 40;
     private float height = 80;
     private float jumpSpeedX = 0;  // Adjust the initial jump speed as needed
@@ -26,7 +26,8 @@ public class Player {
     public Player() {
         // Initialize player properties
         x = 300;
-        y = groundLevel;  // Start at the ground level
+        y = groundLevel;// Start at the ground level
+        platformY = 0;
     }
 
     public float leftX() {
@@ -45,7 +46,8 @@ public class Player {
         return y + height / 2;
     }
     private void checkPlatformCollisions() {
-        for (Platform platform : platformList) {
+        for (Platform platform : platformList){
+            platform.platformUpdate(platformY+platform.getOriginal_y());
             if (isCollidingWithLeftSide(platform)) {
                 //Log.d("CollisionDetection", "Left side collision detected!");
                 jumpSpeedX = 0;
@@ -56,16 +58,16 @@ public class Player {
                 x = platform.leftX() - width / 2;
             }
 
-            if (jumpSpeedY >= 0 && isCollidingWithBottomSide(platform)) {
+            if (jumpSpeedY <= 0 && isCollidingWithBottomSide(platform)) {
+                //Log.d("CollisionDetection", "Top side collision detected!");
+                jumpSpeedY = 0;
+                y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
+            } else if (jumpSpeedY > 0 && isCollidingWithTopSide(platform)) {
                 //Log.d("CollisionDetection", "Bottom side collision detected!");
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
                 y = platform.topY() - height / 2; // Adjust the position to prevent overlap
-            } else if (jumpSpeedY < 0 && isCollidingWithTopSide(platform)) {
-                //Log.d("CollisionDetection", "Top side collision detected!");
-                jumpSpeedY = 0;
-                y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
             }
         }
     }
@@ -115,11 +117,12 @@ public class Player {
         this.platformList = platforms;
         if (isJumping) {
             // If jumping, update the position accordingly
-            y += jumpSpeedY*jumpY;
+            platformY -= jumpSpeedY*jumpY;
+            Log.d("Platform Y", "Y value" + platformY);
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
 
-            Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);
+            //Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);
 
 
             checkPlatformCollisions();
@@ -127,14 +130,10 @@ public class Player {
     }
 
 
-    public float getY(){
-        return y;
-    }
-
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
+        canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint); //draws player
     }
 
     public void startChargingJump() {
