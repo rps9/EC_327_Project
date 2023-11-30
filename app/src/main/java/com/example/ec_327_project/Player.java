@@ -1,8 +1,8 @@
 package com.example.ec_327_project;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.Log;
 
 import java.util.List;
@@ -16,15 +16,39 @@ public class Player {
     private float gravity = 1;  // Adjust the gravity as needed
     private boolean isJumping = false;
 
+    //private boolean hold;
+
     private float groundLevel = 1850;  // Adjust the ground level as needed
     private float maxHeight = 30;  // Adjust the max height as needed
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
-    private long jumpStartTime;  // To track when the jump button is pressed
+    public long jumpStartTime;  // To track when the jump button is pressed
+
+    //private long hold_time;
+
     private List<Platform> platformList;
 
-    public Player() {
+
+
+    private Bitmap[] playerBitmaps;
+    public int currentId = 0;
+
+    public static final int  player_1=R.mipmap.player_1;
+    public static final int  player_2=R.mipmap.player_2;
+    public static final int  player_3=R.mipmap.player_3;
+    public static final int  player_4=R.mipmap.player_4;
+
+    public Player(MainActivity context) {    //
+    //public Player() {
         // Initialize player properties
+
+        playerBitmaps = new Bitmap[4];     //
+        playerBitmaps[0]=BitmapFactory.decodeResource(context.getResources(),player_1);  //
+        playerBitmaps[1]=BitmapFactory.decodeResource(context.getResources(),player_2);  //
+        playerBitmaps[2]=BitmapFactory.decodeResource(context.getResources(),player_3);  //
+        playerBitmaps[3]=BitmapFactory.decodeResource(context.getResources(),player_4);  //
+
+
         x = 300;
         y = groundLevel;// Start at the ground level
         platformY = 0;
@@ -52,22 +76,26 @@ public class Player {
                 //Log.d("CollisionDetection", "Left side collision detected!");
                 jumpSpeedX = 0;
                 x = platform.rightX() + width / 2;
+
             } else if (isCollidingWithRightSide(platform)) {
                 //Log.d("CollisionDetection", "Right side collision detected!");
                 jumpSpeedX = 0;
                 x = platform.leftX() - width / 2;
+
             }
 
             if (jumpSpeedY <= 0 && isCollidingWithBottomSide(platform)) {
                 //Log.d("CollisionDetection", "Top side collision detected!");
                 jumpSpeedY = 0;
                 y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
+
             } else if (jumpSpeedY > 0 && isCollidingWithTopSide(platform)) {
                 //Log.d("CollisionDetection", "Bottom side collision detected!");
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
                 y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+
             }
         }
     }
@@ -121,6 +149,7 @@ public class Player {
             Log.d("Platform Y", "Y value" + platformY);
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
+            currentId = 0;  //
 
             //Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);
 
@@ -131,9 +160,11 @@ public class Player {
 
 
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint); //draws player
+        Bitmap currentImage= playerBitmaps[currentId];       //
+        canvas.drawBitmap(currentImage, x - currentImage.getWidth() / 2, y - currentImage.getHeight() / 2, null); //
+        //Paint paint = new Paint();
+        //paint.setColor(Color.WHITE);
+        //canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint); //draws player
     }
 
     public void startChargingJump() {
@@ -151,6 +182,7 @@ public class Player {
             // Calculate charge duration, ensuring it doesn't exceed the maximum charge time
             long chargeDuration = System.currentTimeMillis() - jumpStartTime;
             float jumpHeight = chargeFactor*chargeDuration + maxHeight/2;
+            currentId = (int) ((jumpHeight/maxHeight) * (playerBitmaps.length - 1));   //
 
             if (jumpHeight > maxHeight){
                 jumpHeight = maxHeight;

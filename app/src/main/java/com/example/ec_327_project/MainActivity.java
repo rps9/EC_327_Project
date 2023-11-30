@@ -17,6 +17,9 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, SensorEventListener {
     private GameThread gameThread;
+    private long hold_time;
+
+    private boolean hold;
     private Player player;
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         SurfaceView gameSurfaceView = findViewById(R.id.gameSurfaceView);
         gameSurfaceView.getHolder().addCallback(this);
 
-        player = new Player();
+        player = new Player(this);
         gameThread = new GameThread(gameSurfaceView.getHolder(), player);
         gameThread.start();
 
@@ -67,6 +70,30 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 player.startChargingJump();
+
+//                hold = true;
+//                while(hold){
+//                    hold_time=System.currentTimeMillis()-player.jumpStartTime;
+//                    if(hold_time>0 && hold_time<=500){
+//                        player.currentId=1;
+//                        if(event.getAction()==1){
+//                            hold = false;
+//                        }
+//                    }
+//                    else if(hold_time>500 && hold_time<=1000){
+//                        player.currentId=2;
+//                        if(event.getAction()==1){
+//                            hold = false;
+//                        }
+//
+//                    }
+//                    else if(hold_time>1000){
+//                        player.currentId=3;
+//                        if(event.getAction()==1){
+//                            hold = false;
+//                        }
+//                    }
+//            }
                 break;
             case MotionEvent.ACTION_UP:
                 player.releaseJump();
