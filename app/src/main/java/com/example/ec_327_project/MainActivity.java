@@ -1,6 +1,7 @@
 package com.example.ec_327_project;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -17,10 +18,11 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback, SensorEventListener {
     private GameThread gameThread;
-    private long hold_time;
-
-    private boolean hold;
+    private long touchStartTime;
+    private Handler handler = new Handler();
+    private Runnable updateTimeRunnable;
     private Player player;
+    private long touchDuration;
     private SensorManager sensorManager;
     private Sensor accelerometer;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             }
         }
     }
+
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
@@ -70,36 +73,49 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 player.startChargingJump();
-
-//                hold = true;
-//                while(hold){
-//                    hold_time=System.currentTimeMillis()-player.jumpStartTime;
-//                    if(hold_time>0 && hold_time<=500){
-//                        player.currentId=1;
-//                        if(event.getAction()==1){
-//                            hold = false;
-//                        }
-//                    }
-//                    else if(hold_time>500 && hold_time<=1000){
-//                        player.currentId=2;
-//                        if(event.getAction()==1){
-//                            hold = false;
-//                        }
-//
-//                    }
-//                    else if(hold_time>1000){
-//                        player.currentId=3;
-//                        if(event.getAction()==1){
-//                            hold = false;
-//                        }
-//                    }
-//            }
+                touchStartTime = System.currentTimeMillis();
+                startUpdatingTime();
+                if(touchDuration>0 && touchDuration<500){
+                    player.currentId=1;
+                }
+                if(touchDuration>=500 && touchDuration<1000){
+                    player.currentId=2;
+                }
+                if(touchDuration>=1000){
+                    player.currentId=3;
+                }
                 break;
             case MotionEvent.ACTION_UP:
+                stopUpdatingTime();
                 player.releaseJump();
                 break;
         }
         return true;
+    }
+
+    private void startUpdatingTime() {
+        updateTimeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                // Calculate the duration continuously
+                long currentTime = System.currentTimeMillis();
+                touchDuration = currentTime - touchStartTime;
+
+                // Do something with the continuously updating duration (e.g., display it)
+                Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
+
+                // Continue updating time every second (adjust the delay as needed)
+                handler.postDelayed(this, 100);
+            }
+        };
+
+        // Start updating time immediately
+        handler.post(updateTimeRunnable);
+    }
+
+    private void stopUpdatingTime() {
+        // Remove the runnable to stop updating time
+        handler.removeCallbacks(updateTimeRunnable);
     }
 
     @Override
