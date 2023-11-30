@@ -75,15 +75,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 player.startChargingJump();
                 touchStartTime = System.currentTimeMillis();
                 startUpdatingTime();
-                if(touchDuration>0 && touchDuration<500){
-                    player.currentId=1;
-                }
-                if(touchDuration>=500 && touchDuration<1000){
-                    player.currentId=2;
-                }
-                if(touchDuration>=1000){
-                    player.currentId=3;
-                }
                 break;
             case MotionEvent.ACTION_UP:
                 stopUpdatingTime();
@@ -103,9 +94,18 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
                 // Do something with the continuously updating duration (e.g., display it)
                 Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
+                if(touchDuration>0 && touchDuration<500){
+                    player.currentId=1;
+                }
+                if(touchDuration>=500 && touchDuration<1000){
+                    player.currentId=2;
+                }
+                if(touchDuration>=1000){
+                    player.currentId=3;
+                }
 
                 // Continue updating time every second (adjust the delay as needed)
-                handler.postDelayed(this, 100);
+                handler.postDelayed(this, 10);
             }
         };
 
