@@ -54,8 +54,10 @@ public class Player {
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
 
 
-        x = 300;
-        y = groundLevel;// Start at the ground level
+        //x = 530;
+        x = 90;
+        //y = groundLevel;
+        y = 1200;// Start at the ground level
         platformY = 0;
     }
 
@@ -94,14 +96,14 @@ public class Player {
             if (jumpSpeedY <= 0 && isCollidingWithBottomSide(platform)) {
                 //Log.d("CollisionDetection", "Top side collision detected!");
                 jumpSpeedY = 0;
-                y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
+                //y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
 
             } else if (jumpSpeedY > 0 && isCollidingWithTopSide(platform)) {
                 //Log.d("CollisionDetection", "Bottom side collision detected!");
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
-                y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+                //y = platform.topY() - height / 2; // Adjust the position to prevent overlap
 
             }
         }
@@ -153,8 +155,12 @@ public class Player {
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
+
+            //Log.d("Platform Y", "Y value" + platformY);
+
             Log.d("Y_value", "Y value: " +platformY);
             Log.d("Platform Y", "Y value" + platformY);
+
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
             currentId = 0;  //

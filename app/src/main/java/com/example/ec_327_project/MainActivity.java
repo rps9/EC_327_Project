@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 touchDuration = currentTime - touchStartTime;
 
                 // Do something with the continuously updating duration (e.g., display it)
-                Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
+                //Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
                 if(touchDuration>0 && touchDuration<500){
                     player.currentId=1;
                 }
@@ -121,8 +121,16 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float jumpY = event.values[1] / (float)9.809989;
+            float jumpY = event.values[1];
             float jumpX = event.values[0] / (float)9.809989;
+
+            float testjump = event.values[2];
+
+            Log.d("test", "onSensorChanged: " +testjump);
+            Log.d("test", "Y val " +jumpY);
+            Log.d("test", "X val " +jumpX);
+
+
 
             if (jumpX > .9){
                 jumpX = (float) .9;
