@@ -1,10 +1,17 @@
 package com.example.ec_327_project;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.view.SurfaceHolder;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.SurfaceHolder;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;
@@ -12,7 +19,10 @@ public class GameThread extends Thread {
     private Player player;
     private List<Platform> platforms;
 
-    public GameThread(SurfaceHolder holder, Player player) {
+    private Bitmap backgroundImage;
+    private Context context;
+
+    public GameThread(SurfaceHolder holder, Player player, Context context) {
         surfaceHolder = holder;
         isRunning = true;
         this.player = player;
@@ -28,6 +38,9 @@ public class GameThread extends Thread {
         platforms.add(new Platform(530, 1000, 200, 40));//platform5
         platforms.add(new Platform(930, 850, 120, 40));//platform6
         platforms.add(new Platform(270, 500, 200, 40));//platform7
+        platforms.add(new Platform(50, 400, 20, 40));//platform5
+
+        backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
         platforms.add(new Platform(60, 150, 80, 40));//platform5
     }
 
@@ -61,7 +74,7 @@ public class GameThread extends Thread {
     private void draw(Canvas canvas) {
         if (canvas != null) {
             // Clear the canvas
-            canvas.drawColor(Color.GRAY);
+            canvas.drawBitmap(backgroundImage, 0, 0, null);
 
             // Draw the player
             player.draw(canvas);

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         gameSurfaceView.getHolder().addCallback(this);
 
         player = new Player(this);
-        gameThread = new GameThread(gameSurfaceView.getHolder(), player);
+        gameThread = new GameThread(gameSurfaceView.getHolder(), player,this);
         gameThread.start();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -121,9 +121,13 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float jumpY = (event.values[1] / (float)9.809989);
-            float jumpX = event.values[0] / (float)9.809989;
 
+            float jumpY = (event.values[1] / (float)9.809989);
+
+            float jumpY = event.values[1];
+
+            float jumpX = event.values[0] / (float)9.809989;
+            
             //Log.d("test", "y-value" +jumpY);
 
             float testjump = event.values[2];
