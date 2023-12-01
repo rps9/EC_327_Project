@@ -3,6 +3,7 @@ package com.example.ec_327_project;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import java.util.List;
@@ -166,16 +167,21 @@ public class Player {
 
 
     public void draw(Canvas canvas) {
-        Bitmap currentImage= playerBitmaps[currentId];
+        Bitmap currentImage = playerBitmaps[currentId];
 
-        // Draw the bitmap with the desired width and height
+        // Set the transformation matrix for flipping the image horizontally
+        Matrix matrix = new Matrix();
+        if (jumpX < 0) {
+            matrix.setScale(-1, 1); // Flip horizontally
+            matrix.postTranslate(x + currentImage.getWidth() / 2, y - currentImage.getHeight() + height / 2);
+        } else {
+            matrix.setTranslate(x - currentImage.getWidth() / 2, y - currentImage.getHeight() + height / 2);
+        }
 
-        canvas.drawBitmap(currentImage, x - currentImage.getWidth() / 2, y - currentImage.getHeight() + height/2, null);
-
-
-
-
+        // Apply the transformation matrix to the canvas
+        canvas.drawBitmap(currentImage, matrix, null);
     }
+
 
     public void startChargingJump() {
         if (!isJumping) {
