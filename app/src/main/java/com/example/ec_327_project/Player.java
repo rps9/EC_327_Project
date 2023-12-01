@@ -103,8 +103,8 @@ public class Player {
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
-                y = platform.topY() - height / 2; // Adjust the position to prevent overlap
-
+                //y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+                platform.platformUpdate(y + platform.getHeight()/2 + (height/2) );
             }
         }
     }
