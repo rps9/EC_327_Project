@@ -28,7 +28,7 @@ public class GameThread extends Thread {
         platforms.add(new Platform(530, 1000, 200, 40));//platform5
         platforms.add(new Platform(930, 850, 120, 40));//platform6
         platforms.add(new Platform(270, 500, 200, 40));//platform7
-        platforms.add(new Platform(50, 400, 20, 40));//platform5
+        platforms.add(new Platform(60, 150, 80, 40));//platform5
     }
 
     @Override

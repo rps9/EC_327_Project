@@ -55,9 +55,9 @@ public class Player {
 
 
         //x = 530;
-        x = 920;
-        //y = groundLevel;
-        y = 700;// Start at the ground level
+        x = 290;
+        y = 410;
+        //y = groundLevel;// Start at the ground level
         platformY = 0;
     }
 
@@ -103,7 +103,7 @@ public class Player {
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
-                //y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+                y = platform.topY() - height / 2; // Adjust the position to prevent overlap
 
             }
         }
