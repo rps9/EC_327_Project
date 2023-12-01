@@ -21,7 +21,8 @@ public class GameThread extends Thread {
         platforms.add(new Platform(10, 2000, 20, 5000));//left side
         platforms.add(new Platform(1070,2000, 20,5000));//right side
         platforms.add(new Platform(0, 1900, 3000, 40));//floor
-        platforms.add(new Platform(300, 1600, 200, 40));//testing platform
+        platforms.add(new Platform(300, 1600, 200, 40));//testing platform1
+        platforms.add(new Platform(900, 1600, 200, 80));//testing platform2
     }
 
     @Override
@@ -54,7 +55,7 @@ public class GameThread extends Thread {
     private void draw(Canvas canvas) {
         if (canvas != null) {
             // Clear the canvas
-            canvas.drawColor(Color.BLACK);
+            canvas.drawColor(Color.GRAY);
 
             // Draw the player
             player.draw(canvas);
