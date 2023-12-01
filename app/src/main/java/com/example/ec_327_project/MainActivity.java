@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
             float jumpY = (event.values[1] / (float)9.809989);
 
-            float jumpY = event.values[1];
-
             float jumpX = event.values[0] / (float)9.809989;
             
             //Log.d("test", "y-value" +jumpY);
