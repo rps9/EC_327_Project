@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Player {
     private float x, y, jumpX, jumpY, platformY;  // Adjust the position as needed
-    private float width = 40;   //40
-    private float height = 80;   //80
+    private int width = 80;   //hit box player width
+    private int height = 160;   //hit box player height
     private float jumpSpeedX = 0;  // Adjust the initial jump speed as needed
     private float jumpSpeedY = 0;
     private float gravity = 1;  // Adjust the gravity as needed
@@ -18,7 +18,7 @@ public class Player {
 
     //private boolean hold;
 
-    private float groundLevel = 1850;  // Adjust the ground level as needed
+    private float groundLevel = 1920-height;  // Adjust the ground level as needed
     private float maxHeight = 30;  // Adjust the max height as needed
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
@@ -47,16 +47,10 @@ public class Player {
         playerBitmaps[1]=BitmapFactory.decodeResource(context.getResources(),player_2);  //
         playerBitmaps[2]=BitmapFactory.decodeResource(context.getResources(),player_3);  //
         playerBitmaps[3]=BitmapFactory.decodeResource(context.getResources(),player_4);  //
-        int newWidth = 200; // Set your desired width
-        int newHeight = 200; // Set your desired height
-        playerBitmaps[0] = Bitmap.createScaledBitmap(playerBitmaps[0], 40, 80, false);
-        playerBitmaps[1] = Bitmap.createScaledBitmap(playerBitmaps[0], 40, 70, false);
-        playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], 40, 60, false);
-        playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], 40, 50, false);
-//        for (int i = 0; i < playerBitmaps.length; i++) {
-//            playerBitmaps[i] = Bitmap.createScaledBitmap(playerBitmaps[i], newWidth, newHeight, false);
-//        }
-
+        playerBitmaps[0] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height, false);
+        playerBitmaps[1] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-10, false);
+        playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-20, false);
+        playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-30, false);
 
 
         x = 300;
@@ -79,6 +73,8 @@ public class Player {
     public float bottomY() {
         return y + height / 2;
     }
+
+    //public int getWidth() { return }
     private void checkPlatformCollisions() {
         for (Platform platform : platformList){
             platform.platformUpdate(platformY+platform.getOriginal_y());
@@ -170,11 +166,15 @@ public class Player {
 
 
     public void draw(Canvas canvas) {
-        Bitmap currentImage= playerBitmaps[currentId];       //
-        canvas.drawBitmap(currentImage, x - currentImage.getWidth() / 2, y-currentImage.getHeight()+40, null); //
-        //Paint paint = new Paint();
-        //paint.setColor(Color.WHITE);
-        //canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint); //draws player
+        Bitmap currentImage= playerBitmaps[currentId];
+
+        // Draw the bitmap with the desired width and height
+
+        canvas.drawBitmap(currentImage, x - currentImage.getWidth() / 2, y - currentImage.getHeight() + height/2, null);
+
+
+
+
     }
 
     public void startChargingJump() {
