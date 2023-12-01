@@ -96,14 +96,14 @@ public class Player {
             if (jumpSpeedY <= 0 && isCollidingWithBottomSide(platform)) {
                 //Log.d("CollisionDetection", "Top side collision detected!");
                 jumpSpeedY = 0;
-                y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
+                //y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
 
             } else if (jumpSpeedY > 0 && isCollidingWithTopSide(platform)) {
                 //Log.d("CollisionDetection", "Bottom side collision detected!");
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
-                y = platform.topY() - height / 2; // Adjust the position to prevent overlap
+                //y = platform.topY() - height / 2; // Adjust the position to prevent overlap
 
             }
         }
