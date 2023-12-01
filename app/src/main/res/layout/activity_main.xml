@@ -8,7 +8,7 @@
         android:id="@+id/gameSurfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-//
+
     <!-- Other UI elements can be added here as needed -->
 
 </RelativeLayout>
