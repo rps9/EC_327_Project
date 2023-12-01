@@ -74,8 +74,8 @@ public class GameThread extends Thread {
     private void draw(Canvas canvas) {
         if (canvas != null) {
             // Clear the canvas
-            canvas.drawBitmap(backgroundImage, 0, 0, null);
-
+            //canvas.drawBitmap(backgroundImage, 0, 0, null);
+            canvas.drawColor(Color.GRAY);
             // Draw the player
             player.draw(canvas);
 
