@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         gameSurfaceView.getHolder().addCallback(this);
 
         player = new Player(this);
-        gameThread = new GameThread(gameSurfaceView.getHolder(), player);
+        gameThread = new GameThread(gameSurfaceView.getHolder(), player,this);
         gameThread.start();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
