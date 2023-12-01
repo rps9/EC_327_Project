@@ -49,9 +49,9 @@ public class Player {
         playerBitmaps[2]=BitmapFactory.decodeResource(context.getResources(),player_3);  //
         playerBitmaps[3]=BitmapFactory.decodeResource(context.getResources(),player_4);  //
         playerBitmaps[0] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height, false);
-        playerBitmaps[1] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-10, false);
-        playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-20, false);
-        playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-30, false);
+        playerBitmaps[1] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-20, false);
+        playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-40, false);
+        playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
 
 
         x = 300;
@@ -153,6 +153,7 @@ public class Player {
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
+            Log.d("Y_value", "Y value: " +platformY);
             Log.d("Platform Y", "Y value" + platformY);
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
