@@ -54,8 +54,10 @@ public class Player {
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-30, false);
 
 
-        x = 300;
-        y = groundLevel;// Start at the ground level
+        //x = 530;
+        x = 90;
+        //y = groundLevel;
+        y = 1200;// Start at the ground level
         platformY = 0;
     }
 
@@ -153,7 +155,7 @@ public class Player {
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
-            Log.d("Platform Y", "Y value" + platformY);
+            //Log.d("Platform Y", "Y value" + platformY);
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;
             currentId = 0;  //

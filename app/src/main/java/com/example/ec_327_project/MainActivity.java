@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 touchDuration = currentTime - touchStartTime;
 
                 // Do something with the continuously updating duration (e.g., display it)
-                Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
+                //Log.d("Touch Duration", "Duration: " + touchDuration + " milliseconds");
                 if(touchDuration>0 && touchDuration<500){
                     player.currentId=1;
                 }
