@@ -19,7 +19,7 @@ public class Player {
 
     //private boolean hold;
 
-    private float groundLevel = 1920-height;  // Adjust the ground level as needed
+    private float groundLevel = 1920-3*height/4;  // Adjust the ground level as needed
     private float maxHeight = 30;  // Adjust the max height as needed
     private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
 
