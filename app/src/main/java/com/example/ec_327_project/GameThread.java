@@ -41,6 +41,7 @@ public class GameThread extends Thread {
         platforms.add(new Platform(50, 400, 20, 40));//platform5
 
         backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
+        platforms.add(new Platform(60, 150, 80, 40));//platform5
     }
 
     @Override
