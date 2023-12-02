@@ -57,10 +57,9 @@ public class Player {
 
 
         //x = 530;
-        x = 300;
-        //y = groundLevel;
+        x = 720;
         y = groundLevel;// Start at the ground level
-        platformY = 0;
+        platformY = 290; //set this the same as the offset added in the platform class for changing player start position
     }
 
     public float leftX() {
@@ -83,15 +82,14 @@ public class Player {
     private void checkPlatformCollisions() {
         for (Platform platform : platformList){
             platform.platformUpdate(platformY+platform.getOriginal_y());
-            if (jumpSpeedY <= 0 && isCollidingWithTopSide(platform)) {
+            if (jumpSpeedY <= 0 && isCollidingWithTopSide(platform) && !isCollidingWithRightSide(platform) && !isCollidingWithLeftSide(platform)){
                 Log.d("CollisionDetection", "Top side collision detected!");
                 jumpSpeedY = 0;
                 platform.platformUpdate(y - platform.getHeight() / 2 - (height / 2));
                 //y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
 
             } else if (jumpSpeedY > 0 && isCollidingWithBottomSide(platform)) {
-                float test = topY() + height/4;
-                Log.d("CollisionDetection", "Bottom side collision detected!" + test + platform.topY());
+                Log.d("CollisionDetection", "Bottom side collision detected!");
 
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
@@ -127,28 +125,24 @@ public class Player {
         }
     }
 
-
-
     private boolean isCollidingWithLeftSide(Platform platform) {
         return leftX() < platform.rightX() && rightX() > platform.rightX() &&
                 bottomY() > platform.topY() && topY() < platform.bottomY();
-                //&& platform.rightX() < leftX() - width/4;
 
     }
 
     private boolean isCollidingWithRightSide(Platform platform) {
         return rightX() > platform.leftX() && leftX() < platform.leftX() &&
                 bottomY() > platform.topY() && topY() < platform.bottomY();
-                //&& platform.leftX() > rightX() - width/4;
-                //find a better way of dealing with this
+
     }
 
 
     private boolean isCollidingWithBottomSide(Platform platform)
     {
         return bottomY() > platform.topY() && topY()< platform.topY() &&
-                rightX() > platform.leftX() && leftX() < platform.rightX();
-                //&&platform.topY() > bottomY() - height/3;
+                rightX() > platform.leftX() && leftX() < platform.rightX()
+                &&platform.bottomY() > bottomY();
     }
 
     private boolean isCollidingWithTopSide(Platform platform) {

@@ -8,10 +8,11 @@ import android.util.Log;
 public class Platform {
     private float x, y, original_y;
     private float width, height;
+    private boolean leftCheck, rightCheck, bottomCheck, topCheck;
 
     public Platform(float x, float y, float width, float height) {
         this.x = x;
-        this.y = y;
+        this.y = y + 290;
         this.width = width;
         this.height = height;
         this.original_y = y;
@@ -20,7 +21,7 @@ public class Platform {
     public void draw(Canvas canvas) {
         // Draw the obstacle as a rectangle
         Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.DKGRAY);
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
         //Log.d("Platform Draw", "Y Value: " + y);
     }
@@ -55,5 +56,9 @@ public class Platform {
         this.y = y ;
     }
 
+    public void checkLeft(boolean leftCheck) {this.leftCheck = leftCheck;}
+    public void checkTop(boolean topCheck) {this.topCheck = topCheck;}
+    public void checkRight(boolean rightCheck) {this.rightCheck = rightCheck;}
+    public void checkBottom(boolean bottomCheck) {this.bottomCheck = bottomCheck;}
 }
 

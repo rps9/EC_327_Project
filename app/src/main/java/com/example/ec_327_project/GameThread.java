@@ -18,7 +18,6 @@ public class GameThread extends Thread {
     private List<Platform> barriers;
 
     private Bitmap backgroundImage;
-    private Context context;
 
     public GameThread(SurfaceHolder holder, Player player, Context context) {
         surfaceHolder = holder;
@@ -74,19 +73,8 @@ public class GameThread extends Thread {
 
     private void draw(Canvas canvas) {
         if (canvas != null) {
-            // Calculate the scaling factors
-            float scaleX = (float) canvas.getWidth() / backgroundImage.getWidth();
-            float scaleY = (float) canvas.getHeight() / backgroundImage.getHeight();
-
-            // Create a matrix for the scaling operation
-            android.graphics.Matrix matrix = new android.graphics.Matrix();
-            matrix.postScale(scaleX, scaleY);
-
-            // Apply the matrix to the background image
-            Bitmap scaledBackground = Bitmap.createBitmap(backgroundImage, 0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), matrix, true);
-
-            // Draw the scaled background image
-            canvas.drawBitmap(scaledBackground, 0, 0, null);
+            // Clear the canvas
+            canvas.drawColor(Color.GRAY);
 
             // Draw the player
             player.draw(canvas);
