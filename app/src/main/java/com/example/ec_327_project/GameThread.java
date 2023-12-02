@@ -15,6 +15,7 @@ public class GameThread extends Thread {
     private boolean isRunning;
     private Player player;
     private List<Platform> platforms;
+    private List<Platform> barriers;
 
     private Bitmap backgroundImage;
     private Context context;
@@ -25,8 +26,6 @@ public class GameThread extends Thread {
         this.player = player;
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
-        platforms.add(new Platform(10, 2000, 20, 5000));//left side
-        platforms.add(new Platform(1070,2000, 20,5000));//right side
         platforms.add(new Platform(0, 1900, 3000, 40));//floor
         platforms.add(new Platform(300, 1600, 200, 40));//platform1
         platforms.add(new Platform(780, 1600, 200, 40));//platform2
@@ -36,6 +35,11 @@ public class GameThread extends Thread {
         platforms.add(new Platform(930, 850, 120, 40));//platform6
         platforms.add(new Platform(270, 500, 200, 40));//platform7
         platforms.add(new Platform(60, 150, 80, 40));//platform8
+
+        //wall barriers
+        barriers = new ArrayList<>();
+        barriers.add(new Platform(0, 2000, 20, 5000));//left side
+        barriers.add(new Platform(1080,2000, 20,5000));//right side
 
         backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
 
@@ -65,7 +69,7 @@ public class GameThread extends Thread {
     }
 
     private void update() {
-        player.update(platforms);
+        player.update(platforms, barriers);
     }
 
     private void draw(Canvas canvas) {

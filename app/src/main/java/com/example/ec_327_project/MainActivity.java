@@ -128,10 +128,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             
             //Log.d("test", "y-value" +jumpY);
 
-            float testjump = event.values[2];
+            //float testjump = event.values[2];
 
             //Log.d("test", "onSensorChanged: " +testjump);
-            Log.d("test", "Y val " +jumpY);
+            //Log.d("test", "Y val " +jumpY);
             //Log.d("test", "X val " +jumpX);
 
             if (jumpX > .9){
