@@ -127,13 +127,15 @@ public class Player {
 
     private boolean isCollidingWithLeftSide(Platform platform) {
         return leftX() < platform.rightX() && rightX() > platform.rightX() &&
-                bottomY() > platform.topY() && topY() < platform.bottomY();
+                bottomY() > platform.topY() && topY() < platform.bottomY() &&
+                platform.rightX() < leftX() + width/4;
 
     }
 
     private boolean isCollidingWithRightSide(Platform platform) {
         return rightX() > platform.leftX() && leftX() < platform.leftX() &&
-                bottomY() > platform.topY() && topY() < platform.bottomY();
+                bottomY() > platform.topY() && topY() < platform.bottomY() &&
+                platform.leftX() > rightX() - width/4;
 
     }
 
