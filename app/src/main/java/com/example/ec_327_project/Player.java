@@ -29,6 +29,8 @@ public class Player {
 
     private List<Platform> platformList;
 
+    private List<Platform> barrierList;
+
 
 
     private Bitmap[] playerBitmaps;
@@ -55,10 +57,16 @@ public class Player {
 
 
         //x = 530;
+
         x = 60;
         //y = groundLevel;
         y = 1250;// Start at the ground level
         platformY = 0;
+
+        x = 720;
+        y = groundLevel;// Start at the ground level
+        platformY = 290; //set this the same as the offset added in the platform class for changing player start position
+
     }
 
     public float leftX() {
@@ -81,58 +89,73 @@ public class Player {
     private void checkPlatformCollisions() {
         for (Platform platform : platformList){
             platform.platformUpdate(platformY+platform.getOriginal_y());
-            if (isCollidingWithLeftSide(platform)) {
-                //Log.d("CollisionDetection", "Left side collision detected!");
-                jumpSpeedX = 0;
-                x = platform.rightX() + width / 2;
-
-            } else if (isCollidingWithRightSide(platform)) {
-                //Log.d("CollisionDetection", "Right side collision detected!");
-                jumpSpeedX = 0;
-                x = platform.leftX() - width / 2;
-
-            }
-
-            if (jumpSpeedY <= 0 && isCollidingWithBottomSide(platform)) {
-                //Log.d("CollisionDetection", "Top side collision detected!");
+            if (jumpSpeedY <= 0 && isCollidingWithTopSide(platform) && !isCollidingWithRightSide(platform) && !isCollidingWithLeftSide(platform)){
+                Log.d("CollisionDetection", "Top side collision detected!");
                 jumpSpeedY = 0;
+                platform.platformUpdate(y - platform.getHeight() / 2 - (height / 2));
                 //y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
 
-            } else if (jumpSpeedY > 0 && isCollidingWithTopSide(platform)) {
-                //Log.d("CollisionDetection", "Bottom side collision detected!");
+            } else if (jumpSpeedY > 0 && isCollidingWithBottomSide(platform)) {
+                Log.d("CollisionDetection", "Bottom side collision detected!");
+
                 jumpSpeedY = 0;
                 jumpSpeedX = 0;
                 isJumping = false;
                 //y = platform.topY() - height / 2; // Adjust the position to prevent overlap
 
-                platform.platformUpdate(y + platform.getHeight()/2 + (height/2) );
+                platform.platformUpdate(y + platform.getHeight() / 2 + (height / 2));
+            }
 
+            if (isCollidingWithLeftSide(platform) && jumpSpeedY !=0) {
+                Log.d("CollisionDetection", "Left side collision detected!");
+                jumpSpeedX = 0;
+                x = platform.rightX() + width / 2;
 
+            } else if (isCollidingWithRightSide(platform) && jumpSpeedY !=0) {
+                Log.d("CollisionDetection", "Right side collision detected!");
+                jumpSpeedX = 0;
+                x = platform.leftX() - width / 2;
 
+            }
+        }
+        for (Platform barrier : barrierList) {
+            if (isCollidingWithLeftSide(barrier)) {
+                Log.d("CollisionDetection", "Left side barrier collision detected!");
+                jumpSpeedX = 0;
+                x = barrier.rightX() + width / 2;
+
+            } else if (isCollidingWithRightSide(barrier)) {
+                Log.d("CollisionDetection", "Right side barrier collision detected!");
+                jumpSpeedX = 0;
+                x = barrier.leftX() - width / 2;
             }
         }
     }
 
-
-
-    private boolean isCollidingWithRightSide(Platform platform) { //left side of player
-        return rightX() > platform.leftX() && leftX() < platform.leftX() &&
-                topY() < platform.bottomY() && bottomY() > platform.topY();
-    }
-
     private boolean isCollidingWithLeftSide(Platform platform) {
         return leftX() < platform.rightX() && rightX() > platform.rightX() &&
-                topY() < platform.bottomY() && bottomY() > platform.topY();
+                bottomY() > platform.topY() && topY() < platform.bottomY() &&
+                platform.rightX() < leftX() + width/4;
+
     }
 
+    private boolean isCollidingWithRightSide(Platform platform) {
+        return rightX() > platform.leftX() && leftX() < platform.leftX() &&
+                bottomY() > platform.topY() && topY() < platform.bottomY() &&
+                platform.leftX() > rightX() - width/4;
+
+    }
+
+
+    private boolean isCollidingWithBottomSide(Platform platform)
+    {
+        return bottomY() > platform.topY() && topY()< platform.topY() &&
+                rightX() > platform.leftX() && leftX() < platform.rightX()
+                &&platform.bottomY() > bottomY();
+    }
 
     private boolean isCollidingWithTopSide(Platform platform) {
-        return bottomY() > platform.topY() && topY() < platform.topY() &&
-                rightX() > platform.leftX() && leftX() < platform.rightX();
-    }
-
-    private boolean isCollidingWithBottomSide(Platform platform) {
-        return topY() < platform.bottomY() && bottomY() > platform.bottomY() &&
+        return topY() < platform.bottomY() && bottomY() > platform.bottomY() - platform.getHeight() &&
                 rightX() > platform.leftX() && leftX() < platform.rightX();
     }
 
@@ -154,16 +177,15 @@ public class Player {
             this.jumpY = jumpY;
         }
     }
-    public void update(List<Platform> platforms) {
+    public void update(List<Platform> platforms, List<Platform> barriers) {
         this.platformList = platforms;
+        this.barrierList = barriers;
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
 
             //Log.d("Platform Y", "Y value" + platformY);
 
-            Log.d("Y_value", "Y value: " +platformY);
-            Log.d("Platform Y", "Y value" + platformY);
 
             x += jumpSpeedX*jumpX;
             jumpSpeedY += gravity;

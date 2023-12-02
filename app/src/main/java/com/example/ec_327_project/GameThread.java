@@ -5,22 +5,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;
     private boolean isRunning;
     private Player player;
     private List<Platform> platforms;
+    private List<Platform> barriers;
 
     private Bitmap backgroundImage;
-    private Context context;
 
     public GameThread(SurfaceHolder holder, Player player, Context context) {
         surfaceHolder = holder;
@@ -28,9 +25,8 @@ public class GameThread extends Thread {
         this.player = player;
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
+
         int offset = +1200;
-        platforms.add(new Platform(10, 2000+offset, 20, 10000));//left side
-        platforms.add(new Platform(1070,2000+offset, 20,10000));//right side
         platforms.add(new Platform(0, 1900+offset, 3000, 40));//floor
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2
@@ -42,6 +38,11 @@ public class GameThread extends Thread {
         platforms.add(new Platform(60, 150+offset, 80, 40));//platform8
         platforms.add(new Platform(1000, 100+offset, 200, 40));//platform9
         platforms.add(new Platform(800, -300+offset, 150, 40));//platform10
+
+        //wall barriers
+        barriers = new ArrayList<>();
+        barriers.add(new Platform(0, 2000, 20, 10000));//left side
+        barriers.add(new Platform(1080,2000, 20,10000));//right side
 
         backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
 
@@ -71,14 +72,14 @@ public class GameThread extends Thread {
     }
 
     private void update() {
-        player.update(platforms);
+        player.update(platforms, barriers);
     }
 
     private void draw(Canvas canvas) {
         if (canvas != null) {
             // Clear the canvas
-            //canvas.drawBitmap(backgroundImage, 0, 0, null);
             canvas.drawColor(Color.GRAY);
+
             // Draw the player
             player.draw(canvas);
 
@@ -88,11 +89,4 @@ public class GameThread extends Thread {
             }
         }
     }
-
-
 }
-
-
-
-
-
