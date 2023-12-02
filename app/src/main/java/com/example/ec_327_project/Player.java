@@ -55,9 +55,9 @@ public class Player {
 
 
         //x = 530;
-        x = 920;
+        x = 60;
         //y = groundLevel;
-        y = 700;// Start at the ground level
+        y = 1250;// Start at the ground level
         platformY = 0;
     }
 
