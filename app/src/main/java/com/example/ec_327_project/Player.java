@@ -192,6 +192,9 @@ public class Player {
         this.floor = floor;
         if (platformY > 300)
         {
+            jumpSpeedY = 0;
+            isJumping = false;
+            platformY = 0;
             launchEndScreen(context);
             return;
         }
@@ -217,11 +220,9 @@ public class Player {
         }
     }
     private void launchEndScreen(Context context) {
-        // Code to transition to the EndScreen, for example:
         Intent intent = new Intent(context, EndScreen.class);
         context.startActivity(intent);
-        // Make sure to finish the current activity or handle the transition appropriately
-        // depending on your application flow
+
         if (context instanceof MainActivity) {
             ((MainActivity) context).finish();
         }

@@ -14,8 +14,6 @@ public class EndScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endscreen);
 
-        // You can add any additional logic or initialization here
-
         // Get the reference to the "Back to Start" button
         Button backToStartButton = findViewById(R.id.backToStartButton);
 
@@ -23,7 +21,6 @@ public class EndScreen extends AppCompatActivity {
         backToStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the button click
                 goToStartScreen();
             }
         });
