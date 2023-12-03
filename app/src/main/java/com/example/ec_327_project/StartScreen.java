@@ -19,6 +19,7 @@ public class StartScreen extends Activity {
                 // Start the game activity
                 Intent intent = new Intent(StartScreen.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
