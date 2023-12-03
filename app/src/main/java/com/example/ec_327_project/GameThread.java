@@ -30,7 +30,7 @@ public class GameThread extends Thread {
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
 
-        int offset = +3700;
+        int offset = 0;
         platforms.add(new Platform(0, 1900+offset, 3000, 40));//floor
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2

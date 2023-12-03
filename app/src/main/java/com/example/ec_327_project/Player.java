@@ -1,10 +1,12 @@
 package com.example.ec_327_project;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.Log;
+import android.content.Context;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class Player {
 
     private List<Platform> barrierList;
     private Platform floor;
+    private MainActivity context;
 
 
 
@@ -46,7 +49,7 @@ public class Player {
     public Player(MainActivity context) {    //
     //public Player() {
         // Initialize player properties
-
+        this.context = context;
         playerBitmaps = new Bitmap[4];     //
         playerBitmaps[0]=BitmapFactory.decodeResource(context.getResources(),player_1);  //
         playerBitmaps[1]=BitmapFactory.decodeResource(context.getResources(),player_2);  //
@@ -59,6 +62,7 @@ public class Player {
 
         x = 750;
         y = 100;
+        //y= groundLevel;
         //y = groundLevel;// Start at the ground level
         //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
 
@@ -187,6 +191,11 @@ public class Player {
         this.platformList = platforms;
         this.barrierList = barriers;
         this.floor = floor;
+        if (platformY > 100)
+        {
+            launchEndScreen(context);
+            return;
+        }
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
@@ -205,11 +214,16 @@ public class Player {
 
             //Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);
 
-
             checkPlatformCollisions();
         }
     }
-
+    private void launchEndScreen(Context context) {
+        // Code to transition to the EndScreen, for example:
+        Intent intent = new Intent(context, EndScreen.class);
+        context.startActivity(intent);
+        // Make sure to finish the current activity or handle the transition appropriately
+        // depending on your application flow
+    }
 
     public void draw(Canvas canvas) {
         Bitmap currentImage = playerBitmaps[currentId];
