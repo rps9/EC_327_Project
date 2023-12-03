@@ -101,7 +101,7 @@ public class Player {
                 platform.platformUpdate(y - platform.getHeight() / 2 - (height / 2));
                 //y = platform.bottomY() + height / 2; // Adjust the position to prevent overlap
 
-            } else if (jumpSpeedY > 0 && isCollidingWithBottomSide(platform)) {
+            } else if (jumpSpeedY > 0 && isCollidingWithBottomSide(platform) && !isCollidingWithRightSide(platform) && !isCollidingWithLeftSide(platform)) {
                 Log.d("CollisionDetection", "Bottom side collision detected!");
 
                 jumpSpeedY = 0;
