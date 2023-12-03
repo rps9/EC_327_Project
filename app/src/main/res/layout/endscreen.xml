@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    android:background="#FFFFFF"
+    tools:context=".StartScreen">
+
+    <TextView
+        android:id="@+id/endScreenTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations! Game Over."
+        android:textSize="20sp"
+        android:layout_centerInParent="true"/>
+
+    <!-- Add a Button to go back to the StartScreen -->
+    <Button
+        android:id="@+id/backToStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Start"
+        android:layout_below="@id/endScreenTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Add any other UI elements as needed -->
+
+</RelativeLayout>

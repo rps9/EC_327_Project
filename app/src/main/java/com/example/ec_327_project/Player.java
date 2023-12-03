@@ -54,10 +54,10 @@ public class Player {
         playerBitmaps[1] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-20, false);
         playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-40, false);
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
-
-        x = 900;
-        y = 500;
-        //y = groundLevel;// Start at the ground level
+        
+        x = 750;
+        //y = 100;
+        y = groundLevel;// Start at the ground level
         //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
 
     }

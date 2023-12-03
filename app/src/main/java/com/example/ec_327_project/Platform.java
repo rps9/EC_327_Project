@@ -12,7 +12,7 @@ public class Platform {
 
     public Platform(float x, float y, float width, float height) {
         this.x = x;
-        this.y = y + 290;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.original_y = y;
