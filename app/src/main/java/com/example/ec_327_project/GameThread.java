@@ -30,7 +30,7 @@ public class GameThread extends Thread {
         // Add platforms to the list
 
 
-        int offset = +3500;
+        int offset = +3700;
         platforms.add(new Platform(0, 1900+offset, 3000, 40));//floor
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2
@@ -53,7 +53,7 @@ public class GameThread extends Thread {
         platforms.add(new Platform(700, -2700+offset, 150, 40));//platform18
         platforms.add(new Platform(400, -2700+offset, 150, 40));//platform19
         platforms.add(new Platform(75, -2700+offset, 200, 40));//platform20
-        platforms.add(new Platform(475, -3000+offset, 600, 40));//platform14
+        platforms.add(new Platform(525, -3000+offset, 575, 40));//platform21
 
         //wall barriers
         barriers = new ArrayList<>();
