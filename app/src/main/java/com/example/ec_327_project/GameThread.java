@@ -26,7 +26,7 @@ public class GameThread extends Thread {
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
 
-        int offset = +1800;
+        int offset = +3500;
         platforms.add(new Platform(0, 1900+offset, 3000, 40));//floor
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2
@@ -41,7 +41,15 @@ public class GameThread extends Thread {
         platforms.add(new Platform(605, -780+offset, 40, 1000));//wall
         platforms.add(new Platform(1000, -700+offset, 200, 40));//platform11
         platforms.add(new Platform(700, -1100+offset, 150, 40));//platform12
-        platforms.add(new Platform(1050, -1580+offset, 100, 40));//platform10
+        platforms.add(new Platform(1050, -1600+offset, 100, 40));//platform13
+        platforms.add(new Platform(250, -1200+offset, 200, 40));//platform14
+        platforms.add(new Platform(20, -1500+offset, 100, 40));//platform15
+        platforms.add(new Platform(600, -1900+offset, 200, 40));//platform16
+        platforms.add(new Platform(1000, -2300+offset, 200, 40));//platform17
+        platforms.add(new Platform(700, -2700+offset, 150, 40));//platform18
+        platforms.add(new Platform(400, -2700+offset, 150, 40));//platform19
+        platforms.add(new Platform(75, -2700+offset, 200, 40));//platform20
+        platforms.add(new Platform(475, -3000+offset, 600, 40));//platform14
 
         //wall barriers
         barriers = new ArrayList<>();
