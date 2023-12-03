@@ -53,7 +53,7 @@ public class GameThread extends Thread {
         platforms.add(new Platform(700, -2700+offset, 150, 40));//platform18
         platforms.add(new Platform(400, -2700+offset, 150, 40));//platform19
         platforms.add(new Platform(75, -2700+offset, 200, 40));//platform20
-        platforms.add(new Platform(525, -3000+offset, 575, 40));//platform21
+        platforms.add(new Platform(520, -3000+offset, 510, 40));//platform21
 
         //wall barriers
         barriers = new ArrayList<>();
