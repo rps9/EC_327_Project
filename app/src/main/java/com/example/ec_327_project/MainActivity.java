@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 }
 
                 // Continue updating time every second (adjust the delay as needed)
-                handler.postDelayed(this, 10);
+                handler.postDelayed(this, 1);
             }
         };
 
