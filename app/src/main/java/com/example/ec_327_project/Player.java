@@ -61,8 +61,8 @@ public class Player {
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
 
         x = 750;
-        y = 100;
-        //y= groundLevel;
+        //y = 100;
+        y= groundLevel;
         //y = groundLevel;// Start at the ground level
         //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
 
@@ -223,6 +223,9 @@ public class Player {
         context.startActivity(intent);
         // Make sure to finish the current activity or handle the transition appropriately
         // depending on your application flow
+        if (context instanceof MainActivity) {
+            ((MainActivity) context).finish();
+        }
     }
 
     public void draw(Canvas canvas) {
