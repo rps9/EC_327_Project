@@ -62,7 +62,6 @@ public class Player {
 
         x = 750;
         y = 300;
-        //y= groundLevel;
         //y = groundLevel;// Start at the ground level
         //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
 
@@ -223,6 +222,9 @@ public class Player {
         context.startActivity(intent);
         // Make sure to finish the current activity or handle the transition appropriately
         // depending on your application flow
+        if (context instanceof MainActivity) {
+            ((MainActivity) context).finish();
+        }
     }
 
     public void draw(Canvas canvas) {
