@@ -14,14 +14,15 @@ public class Player {
     private int height = 160;   //hit box player height
     private float jumpSpeedX = 0;  // Adjust the initial jump speed as needed
     private float jumpSpeedY = 0;
-    private float gravity = 1;  // Adjust the gravity as needed
+    private float gravity = 0.5f;  // Adjust the gravity as needed
     private boolean isJumping = false;
+    private float terminalVelocity = 50;
 
     //private boolean hold;
 
     private float groundLevel = 1920-3*height/4;  // Adjust the ground level as needed
-    private float maxHeight = 30;  // Adjust the max height as needed
-    private float chargeFactor = 0.02f;  // Adjust the charge factor for slower charging
+    private float maxHeight = 20;  // Adjust the max height as needed
+    private float chargeFactor = 0.01f;  // Adjust the charge factor for slower charging
 
     public long jumpStartTime;  // To track when the jump button is pressed
 
@@ -30,6 +31,7 @@ public class Player {
     private List<Platform> platformList;
 
     private List<Platform> barrierList;
+    private Platform floor;
 
 
 
@@ -55,10 +57,10 @@ public class Player {
         playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-40, false);
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
 
-        x = 750;
+        x = 540; //540 is the center
         //y = 100;
         y = groundLevel;// Start at the ground level
-        //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
+        //platformY = 0;
 
     }
 
@@ -80,6 +82,17 @@ public class Player {
 
     //public int getWidth() { return }
     private void checkPlatformCollisions() {
+        Platform floor = this.floor;
+        floor.platformUpdate(platformY+floor.getOriginal_y());
+        if (jumpSpeedY > 0 && isCollidingWithBottomSide(floor)) {
+            Log.d("CollisionDetection", "Bottom side collision detected!");
+
+            jumpSpeedY = 0;
+            jumpSpeedX = 0;
+            isJumping = false;
+
+            floor.platformUpdate(y + floor.getHeight() / 2 + (height / 2));
+        }
         for (Platform platform : platformList){
             platform.platformUpdate(platformY+platform.getOriginal_y());
             if (jumpSpeedY <= 0 && isCollidingWithTopSide(platform) && !isCollidingWithRightSide(platform) && !isCollidingWithLeftSide(platform)){
@@ -170,18 +183,24 @@ public class Player {
             this.jumpY = jumpY;
         }
     }
-    public void update(List<Platform> platforms, List<Platform> barriers) {
+    public void update(List<Platform> platforms, List<Platform> barriers, Platform floor) {
         this.platformList = platforms;
         this.barrierList = barriers;
+        this.floor = floor;
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;
 
-            //Log.d("Platform Y", "Y value" + platformY);
+            Log.d("Platform Y", "Y value" + platformY);
 
 
             x += jumpSpeedX*jumpX;
-            jumpSpeedY += gravity;
+            if (jumpSpeedY + gravity < terminalVelocity) {
+                jumpSpeedY += gravity;
+            }
+            else{
+                jumpSpeedY = terminalVelocity;
+            }
             currentId = 0;  //
 
             //Log.d("Speed Value", "jumpSpeedY: " + jumpSpeedY);

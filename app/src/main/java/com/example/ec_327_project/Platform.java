@@ -18,13 +18,13 @@ public class Platform {
         this.original_y = y;
     }
 
-    public void draw(Canvas canvas) {
-        // Draw the obstacle as a rectangle
+    public void draw(Canvas canvas, int color) {
         Paint paint = new Paint();
-        paint.setColor(Color.DKGRAY);
+        paint.setColor(color);
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
         //Log.d("Platform Draw", "Y Value: " + y);
     }
+
 
     public float topY() {
         return y - height / 2;
