@@ -8,3 +8,6 @@ angle your phone in an upright position and/or hold down longer on the screen an
 
 
 ![git4](https://github.com/rps9/EC_327_Project/assets/147011183/c4213c55-85c6-4267-997b-3785e01dec2c) ![git 5](https://github.com/rps9/EC_327_Project/assets/147011183/21566e01-c5d5-4046-8d6b-d557f7fc46d4)
+
+
+Link to video tutorial: https://www.youtube.com/watch?v=l7J28aPJbHc 
