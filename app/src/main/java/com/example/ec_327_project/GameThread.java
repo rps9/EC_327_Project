@@ -30,13 +30,13 @@ public class GameThread extends Thread {
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
 
-        int offset = 3900;
+        int offset = 5200;
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2
         platforms.add(new Platform(100, 1300+offset, 200, 40));//platform3
         platforms.add(new Platform(980, 1300+offset, 200, 40));//platform4
         platforms.add(new Platform(530, 1000+offset, 200, 40));//platform5
-        platforms.add(new Platform(930, 850+offset, 120, 40));//platform6
+        platforms.add(new Platform(930, 750+offset, 120, 40));//platform6
         platforms.add(new Platform(270, 500+offset, 200, 40));//platform7
         platforms.add(new Platform(40, 150+offset, 90, 40));//platform8
         platforms.add(new Platform(1000, 100+offset, 200, 40));//platform9
@@ -53,6 +53,12 @@ public class GameThread extends Thread {
         platforms.add(new Platform(400, -2700+offset, 150, 40));//platform19
         platforms.add(new Platform(75, -2700+offset, 200, 40));//platform20
         platforms.add(new Platform(520, -3000+offset, 510, 40));//platform21
+        platforms.add(new Platform(135, -3350+offset, 80, 40));//platform22
+        platforms.add(new Platform(305, -3700+offset, 80, 40));//platform23
+        platforms.add(new Platform(950, -3900+offset, 100, 40));//platform24
+        platforms.add(new Platform(725, -4200+offset, 100, 40));//platform25
+        platforms.add(new Platform(500, -4400+offset, 40, 150));//platform26
+        platforms.add(new Platform(275, -4200+offset, 100, 40));//platform21
 
         //wall barriers
         barriers = new ArrayList<>();
@@ -60,7 +66,7 @@ public class GameThread extends Thread {
         barriers.add(new Platform(1080, 2000, 20, 10000));//right side
 
         //floor
-        floor = new Platform(0, 1900 + offset, 3000, 80);//floor
+        floor = new Platform(0, 1940 + offset, 3000, 160);//floor
 
         backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
 
