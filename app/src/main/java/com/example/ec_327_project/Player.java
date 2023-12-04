@@ -60,9 +60,9 @@ public class Player {
         playerBitmaps[2] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-40, false);
         playerBitmaps[3] = Bitmap.createScaledBitmap(playerBitmaps[0], width, height-60, false);
 
-        x = 725;
-        y = 300;
-        //y = groundLevel;// Start at the ground level
+        x = 540;
+        //y = 600;
+        y = groundLevel;// Start at the ground level
         //platformY = 0; //set this the same as the offset added in the platform class for changing player start position
 
     }
@@ -190,14 +190,13 @@ public class Player {
         this.platformList = platforms;
         this.barrierList = barriers;
         this.floor = floor;
-//        if (platformY > 300)
-//        {
-//            jumpSpeedY = 0;
-//            isJumping = false;
-//            platformY = 0;
-//            launchEndScreen(context);
-//            return;
-//        }
+        if (platformY > 80 && x > 980 && x < 1080 && !isJumping)
+        {
+            jumpSpeedY = 0;
+            platformY = 0;
+            launchEndScreen(context);
+            return;
+        }
         if (isJumping) {
             // If jumping, update the position accordingly
             platformY -= jumpSpeedY*jumpY;

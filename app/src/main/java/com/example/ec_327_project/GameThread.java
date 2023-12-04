@@ -30,13 +30,13 @@ public class GameThread extends Thread {
         platforms = new ArrayList<>(); // Create a list to hold platforms
         // Add platforms to the list
 
-        int offset = 5200;
+        int offset = 0;
         platforms.add(new Platform(300, 1600+offset, 200, 40));//platform1
         platforms.add(new Platform(780, 1600+offset, 200, 40));//platform2
         platforms.add(new Platform(100, 1300+offset, 200, 40));//platform3
         platforms.add(new Platform(980, 1300+offset, 200, 40));//platform4
         platforms.add(new Platform(530, 1000+offset, 200, 40));//platform5
-        platforms.add(new Platform(930, 750+offset, 120, 40));//platform6
+        platforms.add(new Platform(940, 750+offset, 120, 40));//platform6
         platforms.add(new Platform(270, 500+offset, 200, 40));//platform7
         platforms.add(new Platform(40, 150+offset, 90, 40));//platform8
         platforms.add(new Platform(1000, 100+offset, 200, 40));//platform9
@@ -57,8 +57,23 @@ public class GameThread extends Thread {
         platforms.add(new Platform(305, -3700+offset, 80, 40));//platform23
         platforms.add(new Platform(950, -3900+offset, 100, 40));//platform24
         platforms.add(new Platform(725, -4200+offset, 100, 40));//platform25
-        platforms.add(new Platform(500, -4400+offset, 40, 150));//platform26
-        platforms.add(new Platform(275, -4200+offset, 100, 40));//platform21
+        platforms.add(new Platform(500, -4400+offset, 40, 150));//wall
+        platforms.add(new Platform(275, -4200+offset, 100, 40));//platform26
+        platforms.add(new Platform(500, -4800+offset, 40, 150));//wall
+        platforms.add(new Platform(10, -4500+offset, 100, 40));//platform27
+        platforms.add(new Platform(500, -4855+offset, 200, 40));//platform28
+        platforms.add(new Platform(940, -5000+offset, 80, 40));//platform29
+        platforms.add(new Platform(1050, -5300+offset, 80, 40));//platform30
+        platforms.add(new Platform(735, -5400+offset, 80, 40));//platform31
+        platforms.add(new Platform(490, -5400+offset, 60, 40));//platform32
+        platforms.add(new Platform(245, -5400+offset, 40, 40));//platform33
+        platforms.add(new Platform(10, -5700+offset, 40, 40));//platform34
+        platforms.add(new Platform(715, -5900+offset, 40, 40));//platform35
+        platforms.add(new Platform(920, -6200+offset, 40, 40));//platform36
+        platforms.add(new Platform(260, -6300+offset, 40, 40));//platform37
+        platforms.add(new Platform(10, -6500+offset, 100, 40));//platform38
+        platforms.add(new Platform(500, -6800+offset, 550, 40));//platform39
+        platforms.add(new Platform(1000, -7100+offset, 200, 40));//end platform
 
         //wall barriers
         barriers = new ArrayList<>();
