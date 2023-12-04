@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,23 +8,38 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    android:background="#FFFFFF"
+    android:background="#000000"
     tools:context=".StartScreen">
+
+    <TextView
+        android:id="@+id/congratulationsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations!"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/endScreenTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Congratulations! Game Over."
-        android:textSize="20sp"
-        android:layout_centerInParent="true"/>
+        android:text="You've Reached the End."
+        android:textSize="24sp"
+        android:layout_below="@id/congratulationsTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="#CCCCCC"/>
 
-    <!-- Add a Button to go back to the StartScreen -->
     <Button
         android:id="@+id/backToStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Start"
+        android:text="Back to Start Page"
         android:layout_below="@id/endScreenTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
