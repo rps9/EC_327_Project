@@ -3,6 +3,7 @@ package com.example.ec_327_project;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.Log;
 
 public class Platform {
@@ -24,6 +25,33 @@ public class Platform {
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
         //Log.d("Platform Draw", "Y Value: " + y);
     }
+
+    public void draw(Canvas canvas, int flagColor, int poleColor, float flagWidth, float flagHeight) {
+        float poleWidth = this.width;
+        float poleHeight = this.height;
+        float x = this.x;
+        float y = this.y;
+
+        Paint flagPaint = new Paint();
+        flagPaint.setColor(flagColor);
+
+        // Draw pole
+        Paint polePaint = new Paint();
+        polePaint.setColor(poleColor);
+        canvas.drawRect(x - poleWidth / 2, y, x + poleWidth / 2, y + poleHeight, polePaint);
+
+        // Draw flag (triangle)
+        Path flagPath = new Path();
+        flagPath.moveTo(x - poleWidth / 2, y + poleHeight / 2);
+        flagPath.lineTo(x - poleWidth / 2 - flagWidth, y - poleHeight / 2 + 3*flagHeight / 2);
+        flagPath.lineTo(x - poleWidth / 2, y - poleHeight / 2 + flagHeight);
+        flagPath.close();
+        canvas.drawPath(flagPath, flagPaint);
+    }
+
+
+
+
 
 
     public float topY() {

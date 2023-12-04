@@ -34,6 +34,7 @@ public class Player {
 
     private List<Platform> barrierList;
     private Platform floor;
+    private Platform flag;
     private MainActivity context;
 
 
@@ -87,7 +88,9 @@ public class Player {
     //public int getWidth() { return }
     private void checkPlatformCollisions() {
         Platform floor = this.floor;
+        Platform flag = this.flag;
         floor.platformUpdate(platformY+floor.getOriginal_y());
+        flag.platformUpdate(platformY+flag.getOriginal_y());
         if (jumpSpeedY > 0 && isCollidingWithBottomSide(floor)) {
             Log.d("CollisionDetection", "Bottom side collision detected!");
 
@@ -187,11 +190,12 @@ public class Player {
             this.jumpY = jumpY;
         }
     }
-    public void update(List<Platform> platforms, List<Platform> barriers, Platform floor) {
+    public void update(List<Platform> platforms, List<Platform> barriers, Platform floor, Platform flag) {
         this.platformList = platforms;
         this.barrierList = barriers;
         this.floor = floor;
-        if (platformY > 8900 && x > 980 && x < 1080 && !isJumping)
+        this.flag = flag;
+        if (platformY > 8780 /* - offset for testing */ && x > 980 && x < 1080 && !isJumping)
         {
             jumpSpeedY = 0;
             platformY = 0;

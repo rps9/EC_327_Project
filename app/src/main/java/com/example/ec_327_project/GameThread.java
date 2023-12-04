@@ -20,6 +20,7 @@ public class GameThread extends Thread {
     private List<Platform> platforms;
     private List<Platform> barriers;
     private Platform floor;
+    private Platform flag;
 
     private Bitmap backgroundImage;
 
@@ -81,9 +82,12 @@ public class GameThread extends Thread {
         barriers.add(new Platform(1080, 2000, 20, 10000));//right side
 
         //floor
-        floor = new Platform(0, 1940 + offset, 3000, 160);//floor
+        floor = new Platform(0, 1940 + offset, 3000, 160);
 
-        backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
+        //flag
+        flag = new Platform(1000, -7000+offset, 10, 80);
+
+        //backgroundImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_image);
 
     }
 
@@ -111,7 +115,7 @@ public class GameThread extends Thread {
     }
 
     private void update() {
-        player.update(platforms, barriers, floor);
+        player.update(platforms, barriers, floor, flag);
     }
 
     // Define star positions outside the draw method
@@ -161,6 +165,10 @@ public class GameThread extends Thread {
             for (Platform platform : platforms) {
                 platform.draw(canvas, Color.DKGRAY);
             }
+
+            flag.draw(canvas, 0xFFFF0000, Color.WHITE, 40, 40);
+
+
         }
     }
 
