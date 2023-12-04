@@ -190,7 +190,7 @@ public class Player {
         this.platformList = platforms;
         this.barrierList = barriers;
         this.floor = floor;
-        if (platformY > 80 && x > 980 && x < 1080 && !isJumping)
+        if (platformY > 9140 && x > 980 && x < 1080 && !isJumping)
         {
             jumpSpeedY = 0;
             platformY = 0;
