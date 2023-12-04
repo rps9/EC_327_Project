@@ -40,40 +40,40 @@ public class GameThread extends Thread {
         platforms.add(new Platform(270, 500+offset, 200, 40));//platform7
         platforms.add(new Platform(40, 150+offset, 90, 40));//platform8
         platforms.add(new Platform(1000, 100+offset, 200, 40));//platform9
-        platforms.add(new Platform(700, -300+offset, 150, 40));//platform10
-        platforms.add(new Platform(605, -780+offset, 40, 1000));//wall
-        platforms.add(new Platform(1000, -700+offset, 200, 40));//platform11
-        platforms.add(new Platform(700, -1100+offset, 150, 40));//platform12
-        platforms.add(new Platform(1050, -1600+offset, 100, 40));//platform13
+        platforms.add(new Platform(700, -200+offset, 150, 40));//platform10
+        platforms.add(new Platform(605, -630+offset, 40, 900));//wall
+        platforms.add(new Platform(1000, -550+offset, 200, 40));//platform11
+        platforms.add(new Platform(700, -900+offset, 150, 40));//platform12
+        platforms.add(new Platform(1050, -1400+offset, 100, 40));//platform13
         platforms.add(new Platform(250, -1200+offset, 200, 40));//platform14
         platforms.add(new Platform(20, -1500+offset, 100, 40));//platform15
-        platforms.add(new Platform(600, -1900+offset, 200, 40));//platform16
-        platforms.add(new Platform(1000, -2300+offset, 200, 40));//platform17
-        platforms.add(new Platform(700, -2700+offset, 150, 40));//platform18
-        platforms.add(new Platform(400, -2700+offset, 150, 40));//platform19
-        platforms.add(new Platform(75, -2700+offset, 200, 40));//platform20
-        platforms.add(new Platform(520, -3000+offset, 510, 40));//platform21
-        platforms.add(new Platform(135, -3350+offset, 80, 40));//platform22
-        platforms.add(new Platform(305, -3700+offset, 80, 40));//platform23
-        platforms.add(new Platform(950, -3900+offset, 100, 40));//platform24
-        platforms.add(new Platform(725, -4200+offset, 100, 40));//platform25
-        platforms.add(new Platform(500, -4400+offset, 40, 150));//wall
-        platforms.add(new Platform(275, -4200+offset, 100, 40));//platform26
-        platforms.add(new Platform(500, -4800+offset, 40, 150));//wall
-        platforms.add(new Platform(10, -4500+offset, 100, 40));//platform27
-        platforms.add(new Platform(500, -4855+offset, 200, 40));//platform28
-        platforms.add(new Platform(940, -5000+offset, 80, 40));//platform29
-        platforms.add(new Platform(1050, -5300+offset, 80, 40));//platform30
-        platforms.add(new Platform(735, -5400+offset, 80, 40));//platform31
-        platforms.add(new Platform(490, -5400+offset, 60, 40));//platform32
-        platforms.add(new Platform(245, -5400+offset, 40, 40));//platform33
-        platforms.add(new Platform(10, -5700+offset, 40, 40));//platform34
-        platforms.add(new Platform(715, -5900+offset, 40, 40));//platform35
-        platforms.add(new Platform(920, -6200+offset, 40, 40));//platform36
-        platforms.add(new Platform(260, -6300+offset, 40, 40));//platform37
-        platforms.add(new Platform(10, -6500+offset, 100, 40));//platform38
-        platforms.add(new Platform(500, -6800+offset, 550, 40));//platform39
-        platforms.add(new Platform(1000, -7100+offset, 200, 40));//end platform
+        platforms.add(new Platform(600, -1750+offset, 200, 40));//platform16
+        platforms.add(new Platform(1000, -2100+offset, 200, 40));//platform17
+        platforms.add(new Platform(700, -2400+offset, 150, 40));//platform18
+        platforms.add(new Platform(400, -2400+offset, 150, 40));//platform19
+        platforms.add(new Platform(75, -2400+offset, 200, 40));//platform20
+        platforms.add(new Platform(520, -2700+offset, 510, 40));//platform21
+        platforms.add(new Platform(135, -3050+offset, 80, 40));//platform22
+        platforms.add(new Platform(305, -3400+offset, 80, 40));//platform23
+        platforms.add(new Platform(950, -3700+offset, 100, 40));//platform24
+        platforms.add(new Platform(725, -4000+offset, 100, 40));//platform25
+        platforms.add(new Platform(500, -4200+offset, 40, 150));//wall
+        platforms.add(new Platform(275, -4000+offset, 100, 40));//platform26
+        platforms.add(new Platform(500, -4600+offset, 40, 150));//wall
+        platforms.add(new Platform(10, -4300+offset, 100, 40));//platform27
+        platforms.add(new Platform(500, -4655+offset, 200, 40));//platform28
+        platforms.add(new Platform(940, -4800+offset, 80, 40));//platform29
+        platforms.add(new Platform(1050, -5100+offset, 80, 40));//platform30
+        platforms.add(new Platform(735, -5200+offset, 80, 40));//platform31
+        platforms.add(new Platform(490, -5200+offset, 60, 40));//platform32
+        platforms.add(new Platform(245, -5200+offset, 40, 40));//platform33
+        platforms.add(new Platform(10, -5500+offset, 40, 40));//platform34
+        platforms.add(new Platform(715, -5700+offset, 40, 40));//platform35
+        platforms.add(new Platform(920, -6000+offset, 40, 40));//platform36
+        platforms.add(new Platform(260, -6100+offset, 40, 40));//platform37
+        platforms.add(new Platform(10, -6300+offset, 100, 40));//platform38
+        platforms.add(new Platform(500, -6600+offset, 550, 40));//platform39
+        platforms.add(new Platform(1000, -6900+offset, 200, 40));//end platform
 
         //wall barriers
         barriers = new ArrayList<>();
